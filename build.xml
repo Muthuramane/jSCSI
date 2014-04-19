@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="jSCSI" default="buildJar" basedir=".">
+	<description>
+        Build file for iGeek, Inc. Indelible Backup System
+	</description>
+	<import file="../iGeekCommon/build-common.xml"/>
+	<!-- set global properties for this build -->
+	<target name="localProperties">
+		<property name="testData" location="testdata"/>
+		<property name="testTemp" location="${output}/testTemp"/>
+		<property name="jarName" value="jSCSI.jar"/>
+		<path id="localLibs">
+			<fileset dir="../iGeekCommon/output/lib">
+				<include name="*.jar" />
+			</fileset>
+		</path>
+	</target>
+	<target name="buildJar" depends="init, buildiGeekCommon, iGeekBuildCommon.buildJar"/>
+</project>
