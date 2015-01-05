@@ -34,6 +34,12 @@ import org.xml.sax.SAXException;
  */
 public class TargetConfiguration {
 
+	static String overrideTargetAddress;
+	
+	public static void setOverrideTargetAddress(String overrideTargetAddress)
+	{
+		TargetConfiguration.overrideTargetAddress = overrideTargetAddress;
+	}
 
     protected ArrayList<TargetInfo>targets = new ArrayList<TargetInfo>();
     
@@ -144,7 +150,10 @@ public class TargetConfiguration {
     public TargetConfiguration() throws IOException
     {
         port = 3260;
-        targetAddress = InetAddress.getLocalHost().getHostAddress();
+        if (overrideTargetAddress != null)
+        	targetAddress = overrideTargetAddress;
+        else
+        	targetAddress = InetAddress.getLocalHost().getHostAddress();
     }
 
     /**
@@ -169,7 +178,10 @@ public class TargetConfiguration {
             final File configSchemaFileName, final File configFileName)
             throws SAXException, ParserConfigurationException, IOException {
 
-        targetAddress = InetAddress.getLocalHost().getHostAddress();
+        if (overrideTargetAddress != null)
+        	targetAddress = overrideTargetAddress;
+        else
+        	targetAddress = InetAddress.getLocalHost().getHostAddress();
 
         final Document doc = parse(configSchemaFileName, configFileName);
         parseSettings(doc.getDocumentElement());
